@@ -5,9 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VertexForge</title>
 
+  <!-- GLITCH CYBER FAVICON -->
+  <link rel="icon" href="data:image/svg+xml,
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+    <defs>
+      <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+        <stop offset='0%' stop-color='%2300d4ff'/>
+        <stop offset='100%' stop-color='%237c3aed'/>
+      </linearGradient>
+    </defs>
+
+    <!-- glitch base shadow layers -->
+    <text x='50' y='58' text-anchor='middle'
+      font-size='34' font-family='Arial Black'
+      fill='%23ff00ff' opacity='0.6'
+      transform='translate(-2 -1)'>
+      VF
+    </text>
+
+    <text x='50' y='58' text-anchor='middle'
+      font-size='34' font-family='Arial Black'
+      fill='%2300ffff' opacity='0.6'
+      transform='translate(2 1)'>
+      VF
+    </text>
+
+    <!-- main core -->
+    <text x='50' y='58'
+      text-anchor='middle'
+      font-size='34'
+      font-family='Arial Black'
+      fill='url(%23g)'>
+      VF
+    </text>
+
+    <!-- glitch bar -->
+    <rect x='20' y='45' width='60' height='2' fill='white' opacity='0.15'>
+      <animate attributeName='y' values='40;60;40' dur='1.2s' repeatCount='indefinite'/>
+    </rect>
+
+  </svg>">
+
   <link rel="stylesheet" href="style.css">
 
-  <!-- GLITCH STYLE -->
+  <!-- GLITCH LOGO STYLE -->
   <style>
     .logo {
       position: relative;
@@ -19,7 +60,6 @@
       animation: flicker 3s infinite;
     }
 
-    /* duplicate layers */
     .logo::before,
     .logo::after {
       content: "VertexForge";
@@ -27,71 +67,63 @@
       left: 0;
       top: 0;
       width: 100%;
-      overflow: hidden;
     }
 
     .logo::before {
       color: #ff00ff;
-      z-index: -1;
       animation: glitch1 2s infinite linear alternate-reverse;
+      z-index: -1;
     }
 
     .logo::after {
       color: #00ffff;
-      z-index: -2;
       animation: glitch2 1.6s infinite linear alternate-reverse;
+      z-index: -2;
     }
 
     @keyframes glitch1 {
-      0%   { transform: translate(0,0); clip-path: inset(0 0 0 0); }
-      20%  { transform: translate(-2px,1px); clip-path: inset(10% 0 60% 0); }
-      40%  { transform: translate(2px,-1px); clip-path: inset(40% 0 20% 0); }
-      60%  { transform: translate(-1px,2px); clip-path: inset(20% 0 40% 0); }
-      100% { transform: translate(0,0); clip-path: inset(0 0 0 0); }
+      0% { transform: translate(0,0); }
+      25% { transform: translate(-2px,1px); }
+      50% { transform: translate(2px,-1px); }
+      75% { transform: translate(-1px,2px); }
+      100% { transform: translate(0,0); }
     }
 
     @keyframes glitch2 {
-      0%   { transform: translate(0,0); clip-path: inset(0 0 0 0); }
-      25%  { transform: translate(2px,-2px); clip-path: inset(60% 0 10% 0); }
-      50%  { transform: translate(-2px,2px); clip-path: inset(10% 0 60% 0); }
-      75%  { transform: translate(1px,-1px); clip-path: inset(30% 0 30% 0); }
-      100% { transform: translate(0,0); clip-path: inset(0 0 0 0); }
+      0% { transform: translate(0,0); }
+      25% { transform: translate(2px,-2px); }
+      50% { transform: translate(-2px,2px); }
+      75% { transform: translate(1px,-1px); }
+      100% { transform: translate(0,0); }
     }
 
     @keyframes flicker {
       0%, 100% { opacity: 1; }
       92% { opacity: 0.9; }
-      93% { opacity: 0.4; }
+      93% { opacity: 0.3; }
       94% { opacity: 1; }
       96% { opacity: 0.7; }
     }
 
-    /* NAV */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0a0a0f;
+      color: white;
+    }
+
     .nav {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       padding: 20px 40px;
     }
 
     .tag {
       color: #888;
-      font-size: 14px;
-    }
-
-    body {
-      background: #0a0a0f;
-      color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
     }
 
     .hero {
       padding: 80px 40px;
-    }
-
-    .hero h1 {
-      font-size: 42px;
     }
 
     .projects {
@@ -117,28 +149,25 @@
     }
 
     footer {
+      text-align: center;
       padding: 40px;
       color: #666;
-      text-align: center;
     }
   </style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <header class="nav">
   <div class="logo">VertexForge</div>
   <div class="tag">Dev Hub</div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <h1>Build. Experiment. Deploy.</h1>
   <p>A collection of web apps, AI tools and creative experiments.</p>
 </section>
 
-<!-- PROJECTS -->
 <section class="projects">
 
   <a class="card" href="#">
@@ -158,7 +187,6 @@
 
 </section>
 
-<!-- FOOTER -->
 <footer>
   © 2026 VertexForgeDev
 </footer>
