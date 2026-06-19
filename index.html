@@ -11,58 +11,66 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-09K1QXMWJ4');
   </script>
 
-  <!-- GLITCH CYBER FAVICON -->
+  <!-- GREEN TERMINAL FAVICON -->
   <link rel="icon" href="data:image/svg+xml,
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
     <defs>
       <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
-        <stop offset='0%' stop-color='%2300d4ff'/>
-        <stop offset='100%' stop-color='%237c3aed'/>
+        <stop offset='0%' stop-color='%2300ff88'/>
+        <stop offset='100%' stop-color='%2300cc66'/>
       </linearGradient>
     </defs>
-
     <text x='50' y='58' text-anchor='middle'
-      font-size='34' font-family='Arial Black'
-      fill='%23ff00ff' opacity='0.6'
-      transform='translate(-2 -1)'>
-      VF
-    </text>
-
-    <text x='50' y='58' text-anchor='middle'
-      font-size='34' font-family='Arial Black'
-      fill='%2300ffff' opacity='0.6'
-      transform='translate(2 1)'>
-      VF
-    </text>
-
-    <text x='50' y='58'
-      text-anchor='middle'
-      font-size='34'
+      font-size='40'
       font-family='Arial Black'
-      fill='url(%23g)'>
-      VF
-    </text>
-
-    <rect x='20' y='45' width='60' height='2' fill='white' opacity='0.15'>
-      <animate attributeName='y' values='40;60;40' dur='1.2s' repeatCount='indefinite'/>
-    </rect>
+      fill='url(%23g)'>VF</text>
   </svg>">
 
-  <link rel="stylesheet" href="style.css">
-
-  <!-- GLITCH LOGO STYLE -->
   <style>
+    /* =========================
+       GLOBAL TERMINAL THEME
+    ========================= */
+
+    body {
+      margin: 0;
+      font-family: Consolas, Monaco, monospace;
+
+      background:
+        radial-gradient(circle at center,
+        rgba(0,255,140,0.08),
+        transparent 55%),
+        #050505;
+
+      color: #00ff88;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          transparent,
+          transparent 2px,
+          rgba(0,255,140,0.03) 3px
+        );
+      z-index: 0;
+    }
+
+    /* =========================
+       LOGO (UNCHANGED STYLE)
+    ========================= */
+
     .logo {
       position: relative;
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: #00d4ff;
-      text-transform: uppercase;
+      font-weight: bold;
+      color: #00ff88;
+      letter-spacing: 1px;
       animation: flicker 3s infinite;
     }
 
@@ -72,16 +80,19 @@
       position: absolute;
       left: 0;
       top: 0;
+      pointer-events: none;
     }
 
     .logo::before {
-      color: #ff00ff;
+      color: #00ff88;
+      opacity: 0.6;
       animation: glitch1 2s infinite linear alternate-reverse;
       z-index: -1;
     }
 
     .logo::after {
-      color: #00ffff;
+      color: #00cc66;
+      opacity: 0.4;
       animation: glitch2 1.6s infinite linear alternate-reverse;
       z-index: -2;
     }
@@ -110,89 +121,278 @@
       96% { opacity: 0.7; }
     }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0a0a0f;
-      color: white;
+    /* =========================
+       INTRO (UNCHANGED)
+    ========================= */
+
+    #terminal-intro {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(circle at center,
+        rgba(0,255,140,.08),
+        transparent 50%),
+        #050505;
     }
+
+    #terminal-content {
+      width: min(900px, 90%);
+      color: #00ff88;
+      font-family: Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      text-shadow: 0 0 8px rgba(0,255,136,.7);
+    }
+
+    #terminal-intro.fade-out {
+      animation: fadeOut 1s forwards;
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    /* =========================
+       🟢 COMMAND LINE INPUT (NEW)
+    ========================= */
+
+    .command-line {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99998;
+
+      width: min(700px, 90%);
+      display: flex;
+      align-items: center;
+
+      padding: 10px 12px;
+      border: 1px solid rgba(0,255,140,0.25);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+    }
+
+    .prompt {
+      color: #00ff88;
+      margin-right: 8px;
+    }
+
+    .command-line input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #00ff88;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .response {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(700px, 90%);
+      color: rgba(0,255,136,0.8);
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    /* =========================
+       UI
+    ========================= */
 
     .nav {
       display: flex;
       justify-content: space-between;
       padding: 20px 40px;
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,255,140,0.15);
     }
 
-    .tag { color: #888; }
+    .tag {
+      color: rgba(0,255,136,0.6);
+    }
 
     .hero {
-      padding: 80px 40px;
+      text-align: center;
+      padding: 100px 20px 60px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      color: #00ff88;
+    }
+
+    .hero p {
+      opacity: 0.6;
+      color: #00ff88;
     }
 
     .projects {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
+      max-width: 1000px;
+      margin: auto;
       padding: 40px;
     }
 
     .card {
-      background: #111;
-      padding: 20px;
-      border: 1px solid #222;
+      padding: 25px;
+      background: rgba(0,255,140,0.03);
+      border: 1px solid rgba(0,255,140,0.15);
       border-radius: 10px;
       text-decoration: none;
-      color: white;
+      color: #00ff88;
       transition: 0.3s;
     }
 
     .card:hover {
-      border-color: #00d4ff;
-      transform: translateY(-5px);
+      transform: translateY(-6px);
+      background: rgba(0,255,140,0.06);
+      border-color: rgba(0,255,140,0.3);
     }
 
     footer {
       text-align: center;
-      padding: 40px;
-      color: #666;
+      padding: 50px;
+      color: rgba(0,255,140,0.4);
     }
   </style>
 </head>
 
 <body>
 
+<!-- INTRO (UNCHANGED) -->
+<div id="terminal-intro">
+  <div id="terminal-content"></div>
+</div>
+
+<!-- NAV -->
 <header class="nav">
   <div class="logo">VertexForge</div>
   <div class="tag">Dev Hub</div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
   <h1>Build. Experiment. Deploy.</h1>
   <p>A collection of web apps, AI tools and creative experiments.</p>
 </section>
 
+<!-- PROJECTS -->
 <section class="projects">
-
-  <a class="card" href="#">
-    <h2>🧠 Portfolio Case Study</h2>
-    <p>Design + frontend experiment with modern UI</p>
-  </a>
-
-  <a class="card" href="#">
-    <h2>🤖 AI Tools</h2>
-    <p>Coming soon</p>
-  </a>
-
-  <a class="card" href="#">
-    <h2>⚙️ Web Utilities</h2>
-    <p>Coming soon</p>
-  </a>
-
+  <a class="card" href="#"><h2>🧠 Portfolio Case Study</h2><p>Design + frontend experiment</p></a>
+  <a class="card" href="#"><h2>🤖 AI Tools</h2><p>Coming soon</p></a>
+  <a class="card" href="#"><h2>⚙️ Web Utilities</h2><p>Coming soon</p></a>
 </section>
 
-<footer>
-  © 2026 VertexForgeDev
-</footer>
+<footer>© 2026 VertexForgeDev</footer>
 
+<!-- COMMAND LINE (NEW) -->
+<div class="response" id="response"></div>
+
+<div class="command-line">
+  <span class="prompt">></span>
+  <input id="cmd" placeholder="run diagnostics" />
+</div>
+
+<script>
+/* INTRO */
+const terminalLines = [
+  "[ VertexForge Secure Environment ]",
+  "",
+  "> Initializing core systems...",
+  "> Loading modules...",
+  "> Booting interface...",
+  "",
+  "> Access granted.",
+  "> Welcome, Visitor."
+];
+
+const terminal = document.getElementById("terminal-content");
+const intro = document.getElementById("terminal-intro");
+
+let line = 0, char = 0;
+
+function typeWriter() {
+  if (line >= terminalLines.length) {
+    setTimeout(() => {
+      intro.classList.add("fade-out");
+      setTimeout(() => intro.remove(), 1000);
+    }, 600);
+    return;
+  }
+
+  const current = terminalLines[line];
+
+  if (char < current.length) {
+    terminal.innerHTML += current.charAt(char++);
+    setTimeout(typeWriter, 18);
+  } else {
+    terminal.innerHTML += "\n";
+    line++; char = 0;
+    setTimeout(typeWriter, 100);
+  }
+}
+
+window.addEventListener("load", () => setTimeout(typeWriter, 300));
+
+/* COMMAND LINE */
+const input = document.getElementById("cmd");
+const response = document.getElementById("response");
+
+window.addEventListener("load", () => {
+  input.focus();
+});
+
+document.addEventListener("click", () => {
+  input.focus();
+});
+
+input.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter") return;
+
+  const cmd = input.value.toLowerCase().trim();
+  if (!cmd) return;
+
+  if (cmd === "run diagnostics") {
+    response.textContent =
+`SYSTEM CHECK:
+- CPU: OK
+- MEMORY: OK
+- NETWORK: OK
+- UI ENGINE: STABLE
+STATUS: SYSTEM ONLINE`;
+  } 
+  else if (cmd === "clear") {
+    response.textContent = "";
+  } 
+  else if (cmd === "help") {
+    response.textContent =
+`AVAILABLE COMMANDS:
+- run diagnostics
+- help
+- clear`;
+  } 
+  else {
+    response.textContent = `UNKNOWN COMMAND: ${cmd}`;
+  }
+
+  input.value = "";
+});
+</script>
 </body>
 </html>
