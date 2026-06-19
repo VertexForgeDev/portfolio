@@ -5,36 +5,126 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VertexForge</title>
 
-  <!-- FAVICON (inline SVG - VertexForge VF logo) -->
-  <link rel="icon" href="data:image/svg+xml,
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-    <defs>
-      <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
-        <stop offset='0%' stop-color='%2300d4ff'/>
-        <stop offset='100%' stop-color='%237c3aed'/>
-      </linearGradient>
-    </defs>
-
-    <polygon points='50,5 90,25 90,75 50,95 10,75 10,25'
-      fill='black' stroke='url(%23g)' stroke-width='6'/>
-
-    <text x='50' y='62'
-      font-size='34'
-      text-anchor='middle'
-      fill='url(%23g)'
-      font-family='Arial Black, sans-serif'>
-      VF
-    </text>
-  </svg>">
-
   <link rel="stylesheet" href="style.css">
+
+  <!-- GLITCH STYLE -->
+  <style>
+    .logo {
+      position: relative;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #00d4ff;
+      text-transform: uppercase;
+      animation: flicker 3s infinite;
+    }
+
+    /* duplicate layers */
+    .logo::before,
+    .logo::after {
+      content: "VertexForge";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .logo::before {
+      color: #ff00ff;
+      z-index: -1;
+      animation: glitch1 2s infinite linear alternate-reverse;
+    }
+
+    .logo::after {
+      color: #00ffff;
+      z-index: -2;
+      animation: glitch2 1.6s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch1 {
+      0%   { transform: translate(0,0); clip-path: inset(0 0 0 0); }
+      20%  { transform: translate(-2px,1px); clip-path: inset(10% 0 60% 0); }
+      40%  { transform: translate(2px,-1px); clip-path: inset(40% 0 20% 0); }
+      60%  { transform: translate(-1px,2px); clip-path: inset(20% 0 40% 0); }
+      100% { transform: translate(0,0); clip-path: inset(0 0 0 0); }
+    }
+
+    @keyframes glitch2 {
+      0%   { transform: translate(0,0); clip-path: inset(0 0 0 0); }
+      25%  { transform: translate(2px,-2px); clip-path: inset(60% 0 10% 0); }
+      50%  { transform: translate(-2px,2px); clip-path: inset(10% 0 60% 0); }
+      75%  { transform: translate(1px,-1px); clip-path: inset(30% 0 30% 0); }
+      100% { transform: translate(0,0); clip-path: inset(0 0 0 0); }
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      92% { opacity: 0.9; }
+      93% { opacity: 0.4; }
+      94% { opacity: 1; }
+      96% { opacity: 0.7; }
+    }
+
+    /* NAV */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+    }
+
+    .tag {
+      color: #888;
+      font-size: 14px;
+    }
+
+    body {
+      background: #0a0a0f;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    .hero {
+      padding: 80px 40px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .card {
+      background: #111;
+      padding: 20px;
+      border: 1px solid #222;
+      border-radius: 10px;
+      text-decoration: none;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      border-color: #00d4ff;
+      transform: translateY(-5px);
+    }
+
+    footer {
+      padding: 40px;
+      color: #666;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
-
-<!-- GLOW -->
-<div class="glow-blue"></div>
-<div class="glow-purple"></div>
 
 <!-- NAV -->
 <header class="nav">
@@ -72,38 +162,6 @@
 <footer>
   © 2026 VertexForgeDev
 </footer>
-
-<script>
-const blue = document.querySelector(".glow-blue");
-const purple = document.querySelector(".glow-purple");
-
-let mx = 0, my = 0;
-let bx = 0, by = 0;
-let px = 0, py = 0;
-
-document.addEventListener("mousemove", (e) => {
-  mx = e.clientX;
-  my = e.clientY;
-});
-
-function animate() {
-  bx += (mx - bx) * 0.12;
-  by += (my - by) * 0.12;
-
-  px += (mx - px) * 0.06;
-  py += (my - py) * 0.06;
-
-  blue.style.left = bx + "px";
-  blue.style.top = by + "px";
-
-  purple.style.left = px + "px";
-  purple.style.top = py + "px";
-
-  requestAnimationFrame(animate);
-}
-
-animate();
-</script>
 
 </body>
 </html>
