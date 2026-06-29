@@ -35,15 +35,13 @@
     body {
       margin: 0;
       font-family: Consolas, Monaco, monospace;
-
-      background:
-        radial-gradient(circle at center,
-        rgba(0,255,140,0.08),
-        transparent 55%),
-        #050505;
-
+      background: radial-gradient(circle at center, rgba(0,255,140,0.08), transparent 55%), #050505;
       color: #00ff88;
       overflow-x: hidden;
+      /* Added to prevent overlap */
+      padding-bottom: 150px; 
+      min-height: 100vh;
+      box-sizing: border-box;
     }
 
     body::before {
@@ -51,17 +49,12 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background:
-        repeating-linear-gradient(
-          transparent,
-          transparent 2px,
-          rgba(0,255,140,0.03) 3px
-        );
+      background: repeating-linear-gradient(transparent, transparent 2px, rgba(0,255,140,0.03) 3px);
       z-index: 0;
     }
 
     /* =========================
-       LOGO (UNCHANGED STYLE)
+       LOGO
     ========================= */
 
     .logo {
@@ -72,8 +65,7 @@
       animation: flicker 3s infinite;
     }
 
-    .logo::before,
-    .logo::after {
+    .logo::before, .logo::after {
       content: "VertexForge";
       position: absolute;
       left: 0;
@@ -81,46 +73,15 @@
       pointer-events: none;
     }
 
-    .logo::before {
-      color: #00ff88;
-      opacity: 0.6;
-      animation: glitch1 2s infinite linear alternate-reverse;
-      z-index: -1;
-    }
+    .logo::before { color: #00ff88; opacity: 0.6; animation: glitch1 2s infinite linear alternate-reverse; z-index: -1; }
+    .logo::after { color: #00cc66; opacity: 0.4; animation: glitch2 1.6s infinite linear alternate-reverse; z-index: -2; }
 
-    .logo::after {
-      color: #00cc66;
-      opacity: 0.4;
-      animation: glitch2 1.6s infinite linear alternate-reverse;
-      z-index: -2;
-    }
-
-    @keyframes glitch1 {
-      0% { transform: translate(0,0); }
-      25% { transform: translate(-2px,1px); }
-      50% { transform: translate(2px,-1px); }
-      75% { transform: translate(-1px,2px); }
-      100% { transform: translate(0,0); }
-    }
-
-    @keyframes glitch2 {
-      0% { transform: translate(0,0); }
-      25% { transform: translate(2px,-2px); }
-      50% { transform: translate(-2px,2px); }
-      75% { transform: translate(1px,-1px); }
-      100% { transform: translate(0,0); }
-    }
-
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      92% { opacity: 0.9; }
-      93% { opacity: 0.3; }
-      94% { opacity: 1; }
-      96% { opacity: 0.7; }
-    }
+    @keyframes glitch1 { 0% { transform: translate(0,0); } 25% { transform: translate(-2px,1px); } 50% { transform: translate(2px,-1px); } 75% { transform: translate(-1px,2px); } 100% { transform: translate(0,0); } }
+    @keyframes glitch2 { 0% { transform: translate(0,0); } 25% { transform: translate(2px,-2px); } 50% { transform: translate(-2px,2px); } 75% { transform: translate(1px,-1px); } 100% { transform: translate(0,0); } }
+    @keyframes flicker { 0%, 100% { opacity: 1; } 92% { opacity: 0.9; } 93% { opacity: 0.3; } 94% { opacity: 1; } 96% { opacity: 0.7; } }
 
     /* =========================
-       INTRO (UNCHANGED)
+       INTRO
     ========================= */
 
     #terminal-intro {
@@ -130,12 +91,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
-      background:
-        radial-gradient(circle at center,
-        rgba(0,255,140,.08),
-        transparent 50%),
-        #050505;
+      background: radial-gradient(circle at center, rgba(0,255,140,.08), transparent 50%), #050505;
     }
 
     #terminal-content {
@@ -148,16 +104,11 @@
       text-shadow: 0 0 8px rgba(0,255,136,.7);
     }
 
-    #terminal-intro.fade-out {
-      animation: fadeOut 1s forwards;
-    }
-
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
+    #terminal-intro.fade-out { animation: fadeOut 1s forwards; }
+    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
     /* =========================
-       🟢 COMMAND LINE INPUT (NEW)
+       COMMAND LINE INPUT
     ========================= */
 
     .command-line {
@@ -166,32 +117,18 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 99998;
-
       width: min(700px, 90%);
       display: flex;
       align-items: center;
-
       padding: 10px 12px;
       border: 1px solid rgba(0,255,140,0.25);
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.8);
       backdrop-filter: blur(10px);
       border-radius: 8px;
     }
 
-    .prompt {
-      color: #00ff88;
-      margin-right: 8px;
-    }
-
-    .command-line input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #00ff88;
-      font-family: inherit;
-      font-size: 14px;
-    }
+    .prompt { color: #00ff88; margin-right: 8px; }
+    .command-line input { flex: 1; background: transparent; border: none; outline: none; color: #00ff88; font-family: inherit; font-size: 14px; }
 
     .response {
       position: fixed;
@@ -202,6 +139,7 @@
       color: rgba(0,255,136,0.8);
       font-size: 13px;
       white-space: pre-wrap;
+      pointer-events: none;
     }
 
     /* =========================
@@ -217,26 +155,13 @@
       background: rgba(0,0,0,0.6);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(0,255,140,0.15);
+      z-index: 10;
     }
 
-    .tag {
-      color: rgba(0,255,136,0.6);
-    }
-
-    .hero {
-      text-align: center;
-      padding: 100px 20px 60px;
-    }
-
-    .hero h1 {
-      font-size: 42px;
-      color: #00ff88;
-    }
-
-    .hero p {
-      opacity: 0.6;
-      color: #00ff88;
-    }
+    .tag { color: rgba(0,255,136,0.6); }
+    .hero { text-align: center; padding: 100px 20px 60px; }
+    .hero h1 { font-size: 42px; color: #00ff88; }
+    .hero p { opacity: 0.6; color: #00ff88; }
 
     .projects {
       display: grid;
@@ -257,35 +182,22 @@
       transition: 0.3s;
     }
 
-    .card:hover {
-      transform: translateY(-6px);
-      background: rgba(0,255,140,0.06);
-      border-color: rgba(0,255,140,0.3);
-    }
-
-    footer {
-      text-align: center;
-      padding: 50px;
-      color: rgba(0,255,140,0.4);
-    }
+    .card:hover { transform: translateY(-6px); background: rgba(0,255,140,0.06); border-color: rgba(0,255,140,0.3); }
+    footer { text-align: center; padding: 50px; color: rgba(0,255,140,0.4); }
 
     /* RESPONSIVE OPTIMIZATIONS */
-    @media (max-width: 900px) {
-      .projects { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 600px) {
+    @media (max-width: 900px) { .projects { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { 
       .nav { padding: 20px; }
       .hero h1 { font-size: 32px; }
       .projects { grid-template-columns: 1fr; padding: 20px; }
+      body { padding-bottom: 180px; }
     }
   </style>
 </head>
 
 <body>
-
-<div id="terminal-intro">
-  <div id="terminal-content"></div>
-</div>
+<div id="terminal-intro"><div id="terminal-content"></div></div>
 
 <header class="nav">
   <div class="logo">VertexForge</div>
@@ -306,94 +218,37 @@
 <footer>© 2026 VertexForgeDev</footer>
 
 <div class="response" id="response"></div>
-
 <div class="command-line">
   <span class="prompt">></span>
   <input id="cmd" placeholder="run diagnostics" />
 </div>
 
 <script>
-/* INTRO */
-const terminalLines = [
-  "[ VertexForge Secure Environment ]",
-  "",
-  "> Initializing core systems...",
-  "> Loading modules...",
-  "> Booting interface...",
-  "",
-  "> Access granted.",
-  "> Welcome, Visitor."
-];
-
+const terminalLines = ["[ VertexForge Secure Environment ]", "", "> Initializing core systems...", "> Loading modules...", "> Booting interface...", "", "> Access granted.", "> Welcome, Visitor."];
 const terminal = document.getElementById("terminal-content");
 const intro = document.getElementById("terminal-intro");
-
 let line = 0, char = 0;
-
 function typeWriter() {
   if (line >= terminalLines.length) {
-    setTimeout(() => {
-      intro.classList.add("fade-out");
-      setTimeout(() => intro.remove(), 1000);
-    }, 600);
+    setTimeout(() => { intro.classList.add("fade-out"); setTimeout(() => intro.remove(), 1000); }, 600);
     return;
   }
-
   const current = terminalLines[line];
-
-  if (char < current.length) {
-    terminal.innerHTML += current.charAt(char++);
-    setTimeout(typeWriter, 18);
-  } else {
-    terminal.innerHTML += "\n";
-    line++; char = 0;
-    setTimeout(typeWriter, 100);
-  }
+  if (char < current.length) { terminal.innerHTML += current.charAt(char++); setTimeout(typeWriter, 18); } 
+  else { terminal.innerHTML += "\n"; line++; char = 0; setTimeout(typeWriter, 100); }
 }
-
 window.addEventListener("load", () => setTimeout(typeWriter, 300));
-
-/* COMMAND LINE */
-const input = document.getElementById("cmd");
-const response = document.getElementById("response");
-
-window.addEventListener("load", () => {
-  input.focus();
-});
-
-document.addEventListener("click", () => {
-  input.focus();
-});
-
+const input = document.getElementById("cmd"), response = document.getElementById("response");
+window.addEventListener("load", () => input.focus());
+document.addEventListener("click", () => input.focus());
 input.addEventListener("keydown", (e) => {
   if (e.key !== "Enter") return;
-
   const cmd = input.value.toLowerCase().trim();
   if (!cmd) return;
-
-  if (cmd === "run diagnostics") {
-    response.textContent =
-`SYSTEM CHECK:
-- CPU: OK
-- MEMORY: OK
-- NETWORK: OK
-- UI ENGINE: STABLE
-STATUS: SYSTEM ONLINE`;
-  } 
-  else if (cmd === "clear") {
-    response.textContent = "";
-  } 
-  else if (cmd === "help") {
-    response.textContent =
-`AVAILABLE COMMANDS:
-- run diagnostics
-- help
-- clear`;
-  } 
-  else {
-    response.textContent = `UNKNOWN COMMAND: ${cmd}`;
-  }
-
+  if (cmd === "run diagnostics") response.textContent = "SYSTEM CHECK:\n- CPU: OK\n- MEMORY: OK\n- NETWORK: OK\n- UI ENGINE: STABLE\nSTATUS: SYSTEM ONLINE";
+  else if (cmd === "clear") response.textContent = "";
+  else if (cmd === "help") response.textContent = "AVAILABLE COMMANDS:\n- run diagnostics\n- help\n- clear";
+  else response.textContent = `UNKNOWN COMMAND: ${cmd}`;
   input.value = "";
 });
 </script>
